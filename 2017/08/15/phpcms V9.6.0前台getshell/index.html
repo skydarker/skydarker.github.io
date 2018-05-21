@@ -1,0 +1,1293 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <meta name="google-site-verification" content="p9ZQcLlzhS3CvgOzUqxYASnD-7EbtZe4qW16dXC2Bjc" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CMS渗透," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="暗门's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="你说，我们的未来被装进棺材，染不上尘埃 　　 　　 　 首先先感谢一些前辈们的指点迷津，让我有了专心学习下去的动力。其实当你每复现一个漏洞的时候，一定要搞得明明白白的，可以先过一遍过程，然后过完过程后一定要好好的学习下，这个漏洞形成的原因。因为这对你很有帮助．．所以感谢某位前辈点醒我。">
+<meta name="keywords" content="CMS渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="phpcmsV9.6.0前台getshell">
+<meta property="og:url" content="http://blog.darknessdoor.com/2017/08/15/phpcms V9.6.0前台getshell/index.html">
+<meta property="og:site_name" content="暗门&#39;s Blog">
+<meta property="og:description" content="你说，我们的未来被装进棺材，染不上尘埃 　　 　　 　 首先先感谢一些前辈们的指点迷津，让我有了专心学习下去的动力。其实当你每复现一个漏洞的时候，一定要搞得明明白白的，可以先过一遍过程，然后过完过程后一定要好好的学习下，这个漏洞形成的原因。因为这对你很有帮助．．所以感谢某位前辈点醒我。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180515/phpcms1.png">
+<meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180515/phpcms2.png">
+<meta property="og:updated_time" content="2018-05-15T13:11:15.001Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="phpcmsV9.6.0前台getshell">
+<meta name="twitter:description" content="你说，我们的未来被装进棺材，染不上尘埃 　　 　　 　 首先先感谢一些前辈们的指点迷津，让我有了专心学习下去的动力。其实当你每复现一个漏洞的时候，一定要搞得明明白白的，可以先过一遍过程，然后过完过程后一定要好好的学习下，这个漏洞形成的原因。因为这对你很有帮助．．所以感谢某位前辈点醒我。">
+<meta name="twitter:image" content="http://blog.darknessdoor.com/upload_image/20180515/phpcms1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.darknessdoor.com/2017/08/15/phpcms V9.6.0前台getshell/"/>
+
+  <title> phpcmsV9.6.0前台getshell | 暗门's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">暗门's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年我遇见了你.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            达客阁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航集合
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-money">
+          <a href="/money" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            资助本站
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                phpcmsV9.6.0前台getshell
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-15T20:41:12+08:00" content="2017-08-15">
+              2017-08-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/web渗透/" itemprop="url" rel="index">
+                    <span itemprop="name">web渗透</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/08/15/phpcms V9.6.0前台getshell/" class="leancloud_visitors" data-flag-title="phpcmsV9.6.0前台getshell">
+               &nbsp; | &nbsp;
+			   <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度</span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">你说，我们的未来<br>被装进棺材，染不上尘埃</blockquote>
+　　</p>
+<p>　　</p>
+<p>　 首先先感谢一些前辈们的指点迷津，让我有了专心学习下去的动力。其实当你每复现一个漏洞的时候，一定要搞得明明白白的，可以先过一遍过程，然后过完过程后一定要好好的学习下，这个漏洞形成的原因。因为这对你很有帮助．．所以感谢某位前辈点醒我。<br><a id="more"></a>　 说实话，写这篇博客的时候心情不太好。但是不管了。先进行开始吧，很多朋友说看你的文章是不是需要什么基础，再次我特别声明，我的文章是适合小白看的，不需要基础！不需要基础！不需要基础！！（重要的事情说三遍，为什么呢？因我自己就是个小白，会把一些函数啥意思直接写在上面。所以不必担心看不懂啦。）
+　</p>
+<h3 id="phpcms的概念"><a href="#phpcms的概念" class="headerlink" title="phpcms的概念　　"></a>phpcms的概念　　</h3><p>PHPCMS是一款网站管理软件。该软件采用模块化开发，支持多种分类方式，使用它可方便实现个性化网站的设计、开发与维护。它支持众多的程序组合，可轻松实现网站平台迁移，并可广泛满足各种规模的网站需求，可靠性高，是一款具备文章、下载、图片、分类信息、影视、商城、采集、财务等众多功能的强大、易用、可扩展的优秀网站管理软件。　　　　　　</p>
+<p>说了这么多，大家一定不懂，到底讲的啥鸟语….说白了嘛…就是一个网站的，管理网站的东西，人家做的成品嘛..　　</p>
+<p>就跟你下载的一个软件似的，也是人家做好给你的。</p>
+<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>那么为啥这款特别牛逼的，使用这么广泛的phpcms这个东西会产生漏洞呢，接下来我们分析下…当然如果有兴趣，你们可以自己在本地搭建出这个版本，记住我说的版本是哪儿个版本啊， phpcms_v9.6.0  是这个版本啊…因为其他版本可能漏洞修复了，或者没有这个洞。至于怎么本地搭建…这个你们自行百度下，这个都要问我的话，有点说不过去了啊。</p>
+<blockquote>
+<h5 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h5></blockquote>
+<p>在这个phpcms的目录：phpcms\modules\member\index.php  就是这个文件里面的大概是在129-150行左右。反正你们去找，然后这段代码我贴在下方了。　　</p>
+<p>好的接下来看到这里。</p>
+<pre><code>//附表信息验证 通过模型获取会员信息
+if($member_setting['choosemodel']) {
+    require_once CACHE_MODEL_PATH.'member_input.class.php';//引用一次这个member_input.class.php
+    require_once CACHE_MODEL_PATH.'member_update.class.php';//引用一次这个member_update.class.php
+    $member_input = new member_input($userinfo['modelid']);//这里是调用了member_input函数库，这里是人家定义的。        
+    $_POST['info'] = array_map('new_html_special_chars',$_POST['info']);//打*星号*这里，这里是最重要的..用了new_html_special_chars这个函数
+    $user_model_info = $member_input->get($_POST['info']);//这里我们讲传过去info那个值通过post方式。                
+}
+</code></pre>
+
+
+<p>　　<br>　　<br>接下来我们把上面打＊＊号的那步注释里面的那个函数找出来看看，滋滋滋，像我这么细心的博主上哪儿找去..美滋滋。</p>
+<pre><code>
+function new_html_special_chars($string) {
+    $encoding = 'utf-8';//给这个变量赋值...这个应该都能看懂吧..看不懂说明你接近猪的智商...emm
+    if(strtolower(CHARSET)=='gbk') $encoding = 'ISO-8859-15';//如果进来的那个strtolower是将里面的东西小写是gbk那就复制那个值
+    if(!is_array($string)) return htmlspecialchars($string,ENT_QUOTES,$encoding);//如果能找到$string里面值就返回就是直接返回$string里面的实体以及后面的东西。
+    foreach($string as $key => $val) $string[$key] = new_html_special_chars($val);foreach //仅能用于数组，起到遍历的作用。
+    return $string;//返回值
+}
+</code></pre>　
+好的至此读完感觉并不是特别的有用..那么我们接着往下。。。。我们注意第一大段代码中（也就是**下面的那一句）
+
+<pre><code>    $user_model_info = $member_input->get($_POST['info']);;//这里的调用了一个get方法...我们肯定是要针对get方法进行分析的</code></pre>
+
+
+<p>好的，分析开始了。　　　</p>
+<pre><code>
+function get($data) {
+    $this->data = $data = trim_script($data);//这里是人家自己定义的一个trim_script()的函数，欸.....这个函数我放到下面的了。
+    $model_cache = getcache('member_model', 'commons');
+    $this->db->table_name = $this->db_pre.$model_cache[$this->modelid]['tablename'];
+
+    $info = array();
+    $debar_filed = array('catid','title','style','thumb','status','islink','description');
+    if(is_array($data)) {
+        foreach($data as $field=>$value) {
+            if($data['islink']==1 && !in_array($field,$debar_filed)) continue;
+            $field = safe_replace($field);
+            $name = $this->fields[$field]['name'];
+            $minlength = $this->fields[$field]['minlength'];
+            $maxlength = $this->fields[$field]['maxlength'];
+            $pattern = $this->fields[$field]['pattern'];
+            $errortips = $this->fields[$field]['errortips'];
+            if(empty($errortips)) $errortips = "$name 不符合要求！";
+            $length = empty($value) ? 0 : strlen($value);
+            if($minlength && $length < $minlength && !$isimport) showmessage("$name 不得少于 $minlength 个字符！");
+            if (!array_key_exists($field, $this->fields)) showmessage('模型中不存在'.$field.'字段');
+            if($maxlength && $length > $maxlength && !$isimport) {
+                showmessage("$name 不得超过 $maxlength 个字符！");
+            } else {
+                str_cut($value, $maxlength);
+            }
+            if($pattern && $length && !preg_match($pattern, $value) && !$isimport) showmessage($errortips);
+            if($this->fields[$field]['isunique'] && $this->db->get_one(array($field=>$value),$field) && ROUTE_A != 'edit') showmessage("$name 的值不得重复！");
+            $func = $this->fields[$field]['formtype'];
+            if(method_exists($this, $func)) $value = $this->$func($field, $value);
+
+            $info[$field] = $value;
+        }
+    }
+    return $info;
+}
+</code></pre>
+呐，上面说的把那个trim_script()
+<pre><code>
+function trim_script($str) {
+    if(is_array($str)){
+        foreach ($str as $key => $val){
+            $str[$key] = trim_script($val);
+        }
+     }else{
+         $str = preg_replace ( '/\<([\ ]?)script([^\="">]*?)\>/si', '&lt;\\1script\\2&gt;', $str );//preg_replace 函数执行一个正则表达式的搜索和替换。别问我为啥..我也是百度的..这就人家老外定义的。
+        $str = preg_replace ( '/\<([\ ]?)iframe([^\="">]*?)\>/si', '&lt;\\1iframe\\2&gt;', $str );
+        $str = preg_replace ( '/\<([\ ]?)frame([^\="">]*?)\>/si', '&lt;\\1frame\\2&gt;', $str );
+        $str = str_replace ( 'javascript:', 'javascript：', $str );
+     }
+    return $str;
+}
+//这样看来这段只是个正则替换或者起到一个验证的活。话说，我要怎么搞懂他..到底是换的哪儿些正则呢...
+</([\></([\></([\></code></pre>
+这里我们开始进行挨个挨个的探究下。
+<pre><code>
+$field = safe_replace($field);//这不，又得跟进这个函数。
+</code></pre>
+有人说，你这跟进来跟进去的为啥不直接进入正题...我说这费劲心思的...用尽全力的...不就是为你们真实模拟从源码层面漏洞分析的过程嘛..不喜欢的可以直接滑倒页面最下端...直接看过程。　
+<pre><code>
+/**
+ * 安全过滤函数
+ *
+ * @param $string
+ * @return string
+ */
+function safe_replace($string) {
+    $string = str_replace('%20','',$string);
+    $string = str_replace('%27','',$string);
+    $string = str_replace('%2527','',$string);
+    $string = str_replace('*','',$string);
+    $string = str_replace('"','&quot;',$string);
+    $string = str_replace("'",'',$string);
+    $string = str_replace('"','',$string);
+    $string = str_replace(';','',$string);
+    $string = str_replace('<','&lt;',$string); $string="str_replace('">','&gt;',$string);
+    $string = str_replace("{",'',$string);
+    $string = str_replace('}','',$string);
+    $string = str_replace('\\','',$string);
+    return $string;
+}//不想挨个挨个解释了，就跟那个htmlencoding很像，就是替换。也是过滤的一部分吧...
+</','&lt;',$string);></code></pre>
+继续跟之前的那个get方法，说你呢，小伙子，别跟丢了..跟着我的思路走
+<pre><code>
+$func = $this->fields[$field]['formtype'];
+if(method_exists($this, $func)) $value = $this->$func($field, $value);
+</code></pre>
+到这里我就有点分析不下去了果然代码审计不是一般人可以做出来的啊。去查看了下很多大神关于这个笔记...
+这里引用的是别人的话....我这里直接 后面就是人家说的话 ：`先是获取了一个$func，然后判断方法如果存在就带入这个函数，我这里用的debug模式，可以直接看到最终的$func是editor。`
+　　
+
+然后这里我们接着跟进editor方法：
+<pre><code>
+function editor($field, $value) {
+    $setting = string2array($this->fields[$field]['setting']);
+    $enablesaveimage = $setting['enablesaveimage'];
+    $site_setting = string2array($this->site_config['setting']);
+    $watermark_enable = intval($site_setting['watermark_enable']);
+    $value = $this->attachment->download('content', $value,$watermark_enable);
+    return $value;
+}
+</code></pre>
+
+<p>然后高潮来了…然而我并没有感到高潮..莫名其妙的大神…大神果然是大神…g点都很独特…</p>
+<pre><code>
+$value = $this->attachment->download('content', $value,$watermark_enable);
+</code></pre>
+把$value，也就是我们的info[content]带入到了$this->attachment->download函数！继续跟！！
+
+整段函数如下：
+<pre><code>
+function download($field, $value,$watermark = '0',$ext = 'gif|jpg|jpeg|bmp|png', $absurl = '', $basehref = '')
+{
+global $image_d;
+$this->att_db = pc_base::load_model('attachment_model');
+$upload_url = pc_base::load_config('system','upload_url');
+$this->field = $field;
+$dir = date('Y/md/');
+$uploadpath = $upload_url.$dir;
+$uploaddir = $this->upload_root.$dir;
+$string = new_stripslashes($value);
+if(!preg_match_all("/(href|src)=([\"|']?)([^ \"'>]+\.($ext))\\2/i", $string, $matches)) return $value;
+$remotefileurls = array();
+foreach($matches[3] as $matche)
+{
+    if(strpos($matche, '://') === false) continue;
+    dir_create($uploaddir);
+    $remotefileurls[$matche] = $this->fillurl($matche, $absurl, $basehref);
+}
+unset($matches, $string);
+$remotefileurls = array_unique($remotefileurls);
+$oldpath = $newpath = array();
+foreach($remotefileurls as $k=>$file) {
+    if(strpos($file, '://') === false || strpos($file, $upload_url) !== false) continue;
+    $filename = fileext($file);
+    $file_name = basename($file);
+    $filename = $this->getname($filename);
+
+    $newfile = $uploaddir.$filename;
+    $upload_func = $this->upload_func;
+    if($upload_func($file, $newfile)) {
+        $oldpath[] = $k;
+        $GLOBALS['downloadfiles'][] = $newpath[] = $uploadpath.$filename;
+        @chmod($newfile, 0777);
+        $fileext = fileext($filename);
+        if($watermark){
+            watermark($newfile, $newfile,$this->siteid);
+        }
+        $filepath = $dir.$filename;
+        $downloadedfile = array('filename'=>$filename, 'filepath'=>$filepath, 'filesize'=>filesize($newfile), 'fileext'=>$fileext);
+        $aid = $this->add($downloadedfile);
+        $this->downloadedfiles[$aid] = $filepath;
+    }
+}
+return str_replace($oldpath, $newpath, $value);
+}</code></pre>
+
+
+
+
+<p>先是设置了一些参数，然后把我们的payload带入了一个new_stripslashes函数　</p>
+<p><pre><code><br>/<br>  返回经stripslashes处理过的字符串或数组<br>  @param $string 需要处理的字符串或数组<br>  @return mixed<br> /<br>function new_stripslashes($string) {<br>    if(!is_array($string)) return stripslashes($string);<br>    foreach($string as $key =&gt; $val) $string[$key] = new_stripslashes($val);<br>    return $string;<br>}<br></code></pre><br>进行了一个stripslashes操作。</p>
+<p>这行也是关键的一步：　</p>
+<p><pre><code><br>if(!preg_match_all(“/(href|src)=([\”|’]?)([^ \”‘&gt;]+.($ext))\2/i”, $string, $matches)) return $value;<br></code></pre><br>这里匹配了src或href中文件的文件名，不过后缀为$ext，其中$ext的值为：gif|jpg|jpeg|bmp|png</p>
+<p>但是这里过滤的不严格..所以还是可以绕过的..不然无法绕过..大家就都一起凉凉了。也不会出现这个洞了。<br>然后接下来写的是实战过程。</p>
+<h4 id="实战过程"><a href="#实战过程" class="headerlink" title="实战过程"></a>实战过程</h4><p>这里我实战过了..忘记截图了..这里我就用别人图..有问题可以在来必应里面问我或者我的微博：暗门实验室<br>这两个里面问我。<br>先注册后通过传递数据..来爆出路劲。<br><img src="/upload_image/20180515/phpcms1.png" alt=""><br><img src="/upload_image/20180515/phpcms2.png" alt=""><br><em>持续更新…….</em></p>
+<p>参考：其他各个网站的这个代码有关的讲解…</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/08/15/phpcms V9.6.0前台getshell/">phpcmsV9.6.0前台getshell</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 暗门 的个人博客">暗门</a></p>
+  <p><span>发布时间:</span>2017年08月15日 - 20:08</p>
+  <p><span>最后更新:</span>2018年05月15日 - 21:05</p>
+  <p><span>原始链接:</span><a href="/2017/08/15/phpcms V9.6.0前台getshell/" title="phpcmsV9.6.0前台getshell">http://blog.darknessdoor.com/2017/08/15/phpcms V9.6.0前台getshell/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.darknessdoor.com/2017/08/15/phpcms V9.6.0前台getshell/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CMS渗透/" rel="tag"><i class="fa fa-tag"></i>CMS渗透</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/03/博客初启/" rel="next" title="博客初启">
+                <i class="fa fa-chevron-left"></i> 博客初启
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/weblogic反序列化漏洞(CVE-2018-2628)/" rel="prev" title="weblogic反序列化漏洞(cve-2018-2628)">
+                weblogic反序列化漏洞(cve-2018-2628) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="暗门" />
+          <p class="site-author-name" itemprop="name">暗门</p>
+          <p class="site-description motion-element" itemprop="description">不会开黑的厨师</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/skydarker" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5659779955" rel="external nofollow" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://#" rel="external nofollow" target="_blank" title="暂无">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  暂无
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/u/5659779955" title="暗门实验室（微博）" target="_blank">暗门实验室（微博）</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://invom.cc/" title="invom's blog（友人）" target="_blank">invom's blog（友人）</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ub3r.cn/" title="UB3R" target="_blank">UB3R</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#phpcms的概念"><span class="nav-number">1.</span> <span class="nav-text">phpcms的概念　　</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因"><span class="nav-number">1.1.</span> <span class="nav-text">原因</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原因-1"><span class="nav-number">1.1.1.</span> <span class="nav-text">原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战过程"><span class="nav-number">1.2.</span> <span class="nav-text">实战过程</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暗门</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("bBeCKSjfRYuFFh1xspY4nlf5-gzGzoHsz", "tshfDJAljHmYj5V2dUsNIKQs");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+<!-- <a href="https://github.com/tengzhangchao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a> -->
+undefined
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":"shizuku","bottom":-30,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+</html>
