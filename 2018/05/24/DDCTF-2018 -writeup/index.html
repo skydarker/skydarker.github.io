@@ -124,7 +124,8 @@
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-1.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-2.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-3.png">
-<meta property="og:updated_time" content="2018-05-24T03:43:27.460Z">
+<meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-4.png">
+<meta property="og:updated_time" content="2018-05-24T03:55:46.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF-2018-writeup">
 <meta name="twitter:description" content="万丈红尘静驻于茫茫人海看世事繁华嘈杂喧嚣心却孤零   　　 　　 前辈推荐了DDCTF的2018writeup，觉得有必要跟进了解一下。如果有兴趣的也可以去了解一下。">
@@ -423,6 +424,9 @@
 <h3 id="Web题"><a href="#Web题" class="headerlink" title="Web题"></a>Web题</h3><p>个人比较喜欢web题目，所以先玩web题目，不喜勿怪啊。</p>
 <h4 id="第一题-数据库的秘密-总分一百分"><a href="#第一题-数据库的秘密-总分一百分" class="headerlink" title="第一题 数据库的秘密 总分一百分"></a>第一题 数据库的秘密 总分一百分</h4><p><img src="/upload_image/20180524/ctf-web-1.png" alt=""><br>就是这个题目，点进去首先看下提示。<br><img src="/upload_image/20180524/ctf-web-2.png" alt=""><br>好像没啥提示，就是说了个数据库的秘密…到底有啥秘密还得点进去那个网址具体看看。</p>
 <p>说实话，点进去这个网址的一瞬间我是有点懵逼的。这是啥？？？乱码吗？这跟….数据有个啥关系啊…？也不显示什么数据的参数传递啊。<br><img src="/upload_image/20180524/ctf-web-3.png" alt=""></p>
+<p>说实话，没想到一瞬间第一题就跪了…真心是有点丢人的啊…<br>没办法，去看大佬们也就是赛棍写的文章去了。<br>大佬上面说的这第一题打开题目是限制ip访问，反正是乱码…我说啥也没看出来。限制ip，或者不限制ip访问的。等等，且让我此处换个浏览器试试。<br>果不其然..换个浏览器就能看出来是有提示的了。我敲…我真的是此刻非常的无语。上图…chrome浏览器就能完美的显示，我估计是我那个浏览器编码问题。<br><img src="/upload_image/20180524/ctf-web-4.png" alt=""></p>
+<p>上面显示的是只准123.232.23.245，那么这句话透露出的信息，就是我得把我自己伪造成这个ip，或者在他接受我传输过去的信息的时候，得让他以为我是123.232.23.245，感觉自己说了句废话。</p>
+<p>讲真的，说实话，我真的对于伪造ip几乎就没有了解过，平常挂个代理以为就是伪造ip了，事实上根本就不是的。<br>在一篇大佬的文章中题到了这个词语：通过X-Forwarded-For来伪造ip。<br>说实话，没接触过，所以特地现在去接触看看，百度百度一下，看下到底是什么东西。<br>此处放下，我拜读的X-Forwarded-For的链接：<a href="https://www.jianshu.com/p/98c08956183d" target="_blank" rel="external">X-Forwarded-For</a><br>这是个大神，对我现阶段来说，他是个大神级别的人物。</p>
 <p>更新中</p>
 
       
