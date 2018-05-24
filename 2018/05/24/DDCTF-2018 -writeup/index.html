@@ -125,7 +125,8 @@
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-2.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-3.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-4.png">
-<meta property="og:updated_time" content="2018-05-24T03:55:46.373Z">
+<meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-5.png">
+<meta property="og:updated_time" content="2018-05-24T04:18:23.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF-2018-writeup">
 <meta name="twitter:description" content="万丈红尘静驻于茫茫人海看世事繁华嘈杂喧嚣心却孤零   　　 　　 前辈推荐了DDCTF的2018writeup，觉得有必要跟进了解一下。如果有兴趣的也可以去了解一下。">
@@ -426,7 +427,8 @@
 <p>说实话，点进去这个网址的一瞬间我是有点懵逼的。这是啥？？？乱码吗？这跟….数据有个啥关系啊…？也不显示什么数据的参数传递啊。<br><img src="/upload_image/20180524/ctf-web-3.png" alt=""></p>
 <p>说实话，没想到一瞬间第一题就跪了…真心是有点丢人的啊…<br>没办法，去看大佬们也就是赛棍写的文章去了。<br>大佬上面说的这第一题打开题目是限制ip访问，反正是乱码…我说啥也没看出来。限制ip，或者不限制ip访问的。等等，且让我此处换个浏览器试试。<br>果不其然..换个浏览器就能看出来是有提示的了。我敲…我真的是此刻非常的无语。上图…chrome浏览器就能完美的显示，我估计是我那个浏览器编码问题。<br><img src="/upload_image/20180524/ctf-web-4.png" alt=""></p>
 <p>上面显示的是只准123.232.23.245，那么这句话透露出的信息，就是我得把我自己伪造成这个ip，或者在他接受我传输过去的信息的时候，得让他以为我是123.232.23.245，感觉自己说了句废话。</p>
-<p>讲真的，说实话，我真的对于伪造ip几乎就没有了解过，平常挂个代理以为就是伪造ip了，事实上根本就不是的。<br>在一篇大佬的文章中题到了这个词语：通过X-Forwarded-For来伪造ip。<br>说实话，没接触过，所以特地现在去接触看看，百度百度一下，看下到底是什么东西。<br>此处放下，我拜读的X-Forwarded-For的链接：<a href="https://www.jianshu.com/p/98c08956183d" target="_blank" rel="external">X-Forwarded-For</a><br>这是个大神，对我现阶段来说，他是个大神级别的人物。</p>
+<p>讲真的，说实话，我真的对于伪造ip几乎就没有了解过，平常挂个代理以为就是伪造ip了，事实上根本就不是的。<br>在一篇大佬的文章中题到了这个词语：通过X-Forwarded-For来伪造ip。<br>说实话，没接触过，所以特地现在去接触看看，百度百度一下，看下到底是什么东西。<br>此处放下，我拜读的X-Forwarded-For的链接：<a href="https://www.jianshu.com/p/98c08956183d" target="_blank" rel="external">X-Forwarded-For</a><br>这是个大神，对我现阶段来说，他是个大神级别的人物。<br>可惜啊，这位大神对我的技术过于高估了点…好吧，其实是自己懒得用代码打的，我记得火狐里面好像有一款类似的插件。我去找下。<br>这里我也放上我找到的那款伪造头的工具链接，跟我一样不懂的小白，看下这个链接：<a href="https://jingyan.baidu.com/article/ca41422fc5fd481eae99ed30.html" target="_blank" rel="external">Modify Headers</a></p>
+<p>嗯，然后我开始安装这个插件了。下图就是这个插件<br><img src="/upload_image/20180524/ctf-web-5.png" alt=""><br>好的…失败了…我个人还是建议换个工具吧…这个工具跟我很多年用的时候变了…变得不是特别好用了…话说…实在不行。不如我自己写个代码算了。</p>
 <p>更新中</p>
 
       
@@ -445,7 +447,7 @@
   <p><span>本文标题:</span><a href="/2018/05/24/DDCTF-2018 -writeup/">DDCTF-2018-writeup</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 暗门 的个人博客">暗门</a></p>
   <p><span>发布时间:</span>2018年05月24日 - 11:05</p>
-  <p><span>最后更新:</span>2018年05月24日 - 11:05</p>
+  <p><span>最后更新:</span>2018年05月24日 - 12:05</p>
   <p><span>原始链接:</span><a href="/2018/05/24/DDCTF-2018 -writeup/" title="DDCTF-2018-writeup">http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/"  aria-label="复制成功！"></i></span>
   </p>
@@ -1093,5 +1095,5 @@
 </div>
 
 <!-- <a href="https://github.com/tengzhangchao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a> -->
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
