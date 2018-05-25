@@ -138,7 +138,8 @@
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-15.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-16.png">
 <meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180524/ctf-web-17.png">
-<meta property="og:updated_time" content="2018-05-24T15:26:34.115Z">
+<meta property="og:image" content="http://blog.darknessdoor.com/upload_image/20180525/ddctf-3-1.png">
+<meta property="og:updated_time" content="2018-05-25T15:13:37.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF-2018-writeup">
 <meta name="twitter:description" content="万丈红尘静驻于茫茫人海看世事繁华嘈杂喧嚣心却孤零   　　 　　 前辈推荐了DDCTF的2018writeup，觉得有必要跟进了解一下。如果有兴趣的也可以去了解一下。">
@@ -497,7 +498,12 @@ sqlmap.py -u 'http://127.0.0.1/proxy.php?author=admin' --dump
 <p>即可得到。不愧是大佬啊。就是厉害，这道题在我看来，我客观分析一下，我是解不出来的。总结自我：学习到了一个：<br>X-Forwarded-For、以及分析过程、第一次知道还可以通过php构造本地代理一个php实际模拟网上的真实情况。亦可以通过抓包js发送注入。不仅仅是通过python。</p>
 <h4 id="专属链接（200分）"><a href="#专属链接（200分）" class="headerlink" title="专属链接（200分）"></a>专属链接（200分）</h4><p>好的，开始看第二题，名字很好听啊，叫专属链接，接下来放上这道题的描述，下图：<br><img src="/upload_image/20180524/ctf-web-13.png" alt=""><br>说实话，我这个页面出现了css样式没加载出来，因该不是我的问题，我三个浏览器，火狐，谷歌等都试过了，就是出现了css样式没加载出来，不给过不影响我们看题。<br>直接右击查看下源代码。放图，注意箭头指向的地方。有没有感觉很熟悉，很像base64的一个编码。<br><img src="/upload_image/20180524/ctf-web-14.png" alt=""><br>然后我们base64解码一下，想到这里我就想过曾今的手算base32…<br><img src="/upload_image/20180524/ctf-web-15.png" alt=""><br>很显然，解码出来是个favicon.ico（做网站的肯定知道这个图标是干吗的。）</p>
 <p>然后我尝试访问了下…发现如下图所示，东西没了…此刻我内心是一百个懵逼…不是说存一年的么，这个题目。<br><img src="/upload_image/20180524/ctf-web-16.png" alt=""></p>
-<p>后来用谷歌浏览器进行了一个下载。总算是下载下来了（希望各位像我一样用多个浏览器。这里不是自夸，是真的有好处）<br>之后右击查看图片代码的过程中，我们发现了。一个特别有用的点，就是这儿，这里我放下截图。<br><img src="/upload_image/20180524/ctf-web-17.png" alt=""><br>你会发现页面中出现了一句话，反复出现，反复出现，反复出现。<br><a href="https://www.jianshu.com/p/98c08956183d" target="_blank" rel="external">X-Forwarded-For</a><br>更新中</p>
+<p>后来用谷歌浏览器进行了一个下载。总算是下载下来了（希望各位像我一样用多个浏览器。这里不是自夸，是真的有好处）<br>之后右击查看图片代码的过程中，我们发现了。一个特别有用的点，就是这儿，这里我放下截图。<br><img src="/upload_image/20180524/ctf-web-17.png" alt=""><br>你会发现页面中出现了一句话，反复出现，反复出现，反复出现。<br>这句话是： you can only download .class .xml .ico .ks files?(这句话中文意思想必不用我多说了吧。)<br>这时候大家需要了解下某个东西，这个东西我以前做网站的时候都不知道有这个东西。如下，我放上一些链接。<br><a href="https://baike.baidu.com/item/web.xml/6821534?fr=aladdin" target="_blank" rel="external">web.xml</a><br><a href="http://www.cnblogs.com/yqskj/articles/2233061.html" target="_blank" rel="external">web.xml的作用</a></p>
+<p>看完后感觉有点印象了，好像分多个域名虚拟配置的时候用过。<br>说实话内心有点崩溃，我仔细去看了下，DDctf到底是什么参赛组别的，最后发现居然是高校赛..恕我直言，高校这么强喵的。（吐槽完毕，接着分析。）</p>
+<p>然后接下来就是找这个文件，根据上面的提示嘛，那句英文，当然先找web.xml了。</p>
+<h4 id="注入的奥妙-205分"><a href="#注入的奥妙-205分" class="headerlink" title="注入的奥妙(205分)"></a>注入的奥妙(205分)</h4><p><img src="/upload_image/20180525/ddctf-3-1.png" alt=""><br>说实话，确实这堆题目对于我来说难度是有点高了点，不用说实话了…就是很难..以我目前的水平来看，能做出来的，最起码都是沉浸在这个行业起码两年了，我觉得是。<br>所以如果有小伙伴受到打击了，不要紧，我还可以陪你呢。<br>说实话，这个题目中提示的big-5宽字节注入，我真的是第一次了解，又长姿势了…滋滋滋<br>这里我放上一个宽字节注入链接。<br><a href="http://www.evilclay.com/2017/07/20/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6/" target="_blank" rel="external">宽字节注入的研究</a></p>
+<h4 id="参考链接（点击跳转）"><a href="#参考链接（点击跳转）" class="headerlink" title="参考链接（点击跳转）"></a>参考链接（点击跳转）</h4><p><a href="https://www.anquanke.com/post/id/144879#h3-5" target="_blank" rel="external">安全客的DDCTF 2018 Web Writeup</a><br><a href="https://www.secpulse.com/archives/71113.html" target="_blank" rel="external">安全脉搏的DDCTF 2018 Web Writeup</a></p>
+<p>总的来说，对于这个web组的ctf，我的感觉就是一个字，难，连给新手的出手的机会几乎都没有。<br>更新中</p>
 
       
     </div>
@@ -515,7 +521,7 @@ sqlmap.py -u 'http://127.0.0.1/proxy.php?author=admin' --dump
   <p><span>本文标题:</span><a href="/2018/05/24/DDCTF-2018 -writeup/">DDCTF-2018-writeup</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 暗门 的个人博客">暗门</a></p>
   <p><span>发布时间:</span>2018年05月24日 - 11:05</p>
-  <p><span>最后更新:</span>2018年05月24日 - 23:05</p>
+  <p><span>最后更新:</span>2018年05月25日 - 23:05</p>
   <p><span>原始链接:</span><a href="/2018/05/24/DDCTF-2018 -writeup/" title="DDCTF-2018-writeup">http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.darknessdoor.com/2018/05/24/DDCTF-2018 -writeup/"  aria-label="复制成功！"></i></span>
   </p>
@@ -757,7 +763,7 @@ sqlmap.py -u 'http://127.0.0.1/proxy.php?author=admin' --dump
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DDCTF-2018-writeup"><span class="nav-number">1.</span> <span class="nav-text">DDCTF 2018 writeup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web题"><span class="nav-number">2.</span> <span class="nav-text">Web题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一题-数据库的秘密-（100分）"><span class="nav-number">2.1.</span> <span class="nav-text">第一题 数据库的秘密 （100分）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-采用了使用-PHP-编写代理页面的方式"><span class="nav-number">2.1.1.</span> <span class="nav-text">a.采用了使用 PHP 编写代理页面的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-burp构造脚本发送"><span class="nav-number">2.1.2.</span> <span class="nav-text">b.burp构造脚本发送</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专属链接（200分）"><span class="nav-number">2.2.</span> <span class="nav-text">专属链接（200分）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DDCTF-2018-writeup"><span class="nav-number">1.</span> <span class="nav-text">DDCTF 2018 writeup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web题"><span class="nav-number">2.</span> <span class="nav-text">Web题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一题-数据库的秘密-（100分）"><span class="nav-number">2.1.</span> <span class="nav-text">第一题 数据库的秘密 （100分）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-采用了使用-PHP-编写代理页面的方式"><span class="nav-number">2.1.1.</span> <span class="nav-text">a.采用了使用 PHP 编写代理页面的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-burp构造脚本发送"><span class="nav-number">2.1.2.</span> <span class="nav-text">b.burp构造脚本发送</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专属链接（200分）"><span class="nav-number">2.2.</span> <span class="nav-text">专属链接（200分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注入的奥妙-205分"><span class="nav-number">2.3.</span> <span class="nav-text">注入的奥妙(205分)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接（点击跳转）"><span class="nav-number">2.4.</span> <span class="nav-text">参考链接（点击跳转）</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
